@@ -39,9 +39,9 @@ PCLVisualizer::PCLVisualizer(QWidget* parent)
                               double(bgColor.green()) / 255,
                               double(bgColor.blue()) / 255);
 
-  ui->qvtkWidget->SetRenderWindow(viewer_->getRenderWindow());
-  viewer_->setupInteractor(ui->qvtkWidget->GetInteractor(),
-                           ui->qvtkWidget->GetRenderWindow());
+  ui->qvtkWidget->setRenderWindow(viewer_->getRenderWindow());
+  viewer_->setupInteractor(ui->qvtkWidget->interactor(),
+                           ui->qvtkWidget->renderWindow());
   ui->qvtkWidget->update();
   connectSS();
 
@@ -1136,7 +1136,7 @@ PCLVisualizer::cloudTransform(PointCloudT::Ptr cloud_in,
   double x = ui->lineEdit_X->text().toDouble();
   double y = ui->lineEdit_Y->text().toDouble();
   double zz = ui->lineEdit_Z->text().toDouble();
-  qDebug() << "x:" << x << " y:" << y << " z:" << zz << endl;
+  qDebug() << "x:" << x << " y:" << y << " z:" << zz ;
   transformation_matrix(0, 3) = x;  // 0.1m
   transformation_matrix(1, 3) = y;  // 0.1m
   transformation_matrix(2, 3) = zz; // 0.1m
@@ -1171,8 +1171,7 @@ PCLVisualizer::ICP_aligin(pcl::IterativeClosestPoint<PointT, PointT>::Ptr icp,
               << ", getFitnessScore: " << icp->getFitnessScore() << std::endl;
     cout << "Transformation: \n" << icp->getFinalTransformation() << endl;
     print4x4Matrix(icp->getFinalTransformation().cast<double>());
-    qDebug() << get4x4MatrixStr(icp->getFinalTransformation().cast<double>())
-             << endl;
+    qDebug() << get4x4MatrixStr(icp->getFinalTransformation().cast<double>());
     ////ui->matEdit.setText(get4x4MatrixStr(icp->getFinalTransformation().cast<double>()));
     ui->matEdit->setPlainText(
       get4x4MatrixStr(icp->getFinalTransformation().cast<double>()));
@@ -1185,7 +1184,7 @@ PCLVisualizer::ICP_aligin(pcl::IterativeClosestPoint<PointT, PointT>::Ptr icp,
 void
 PCLVisualizer::best_aligin()
 {
-  icp = boost::make_shared<pcl::IterativeClosestPoint<PointT, PointT>>();
+   boost::make_shared<pcl::IterativeClosestPoint<PointT, PointT>>();
 
   *cloud_in = *cloud_;
   //将原始点云旋转平移

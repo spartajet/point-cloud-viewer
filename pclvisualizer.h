@@ -7,8 +7,9 @@
 #include <QComboBox>
 #include <QDateTime>
 #include <QDebug>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QFileDialog>
+#include <QElapsedTimer>
 #include <QFontComboBox>
 #include <QImage>
 #include <QLabel>
@@ -57,7 +58,7 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/io/ply_io.h>
-#include <pcl/kdtree/flann.h>
+#include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -478,7 +479,7 @@ public:
     mls.setComputeNormals(true);
     //设置参数
     mls.setInputCloud(cloud);
-    mls.setPolynomialFit(true);
+    // mls.setPolynomialFit(true);
     mls.setSearchMethod(tree);
     mls.setSearchRadius(0.005);
     // 曲面重建
@@ -732,7 +733,7 @@ private:
   QString logStr;
   QStringList logList;
 
-  QTime q_time;
+  QElapsedTimer q_time;
 
   bool isRBGA;
 
