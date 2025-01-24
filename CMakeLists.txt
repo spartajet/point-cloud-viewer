@@ -1,10 +1,14 @@
-﻿cmake_minimum_required(VERSION 3.5)
-cmake_policy(SET CMP0074 OLD)
+﻿cmake_minimum_required(VERSION 3.30)
+cmake_policy(SET CMP0074 NEW)
+cmake_policy(SET CMP0144 NEW)
 
 project(PointCloudViewer VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_PREFIX_PATH "D:/cpp/VTK-9.4.1/build/lib/cmake/vtk-9.4" "C:/Qt/6.8.1/msvc2022_64")
-set(Qt6_DIR "C:/Qt/6.8.1/msvc2022_64")
+#set(CMAKE_PREFIX_PATH "C:/Qt/6.8.1/msvc2022_64")
+set(VTK_DIR "D:/cpp/libs/vtk/lib/cmake/vtk-9.4")
+set(PCL_DIR "D:/cpp/libs/pcl/cmake")
+set(FLANN_ROOT "D:/cpp/libs/pcl/3rdParty/FLANN")
+set(PCL_ROOT "D:/cpp/libs/pcl")
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -15,21 +19,24 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package (VTK REQUIRED)
+#find_package (VTK REQUIRED)
 
-IF (VTK_FOUND)
-    MESSAGE(STATUS "VTK found.")
-#    INCLUDE(${VTK_USE_FILE})
-ENDIF()
 
-find_package (PCL 1.14.1 REQUIRED)
+
+find_package (PCL REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
+message(STATUS "PCL_INCLUDE_DIRS: ${PCL_INCLUDE_DIRS}")
 include_directories("D:/cpp/libs/lz4/include")
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
 find_package(QT NAMES Qt6 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package (VTK 9.4 REQUIRED)
+IF (VTK_FOUND)
+    MESSAGE(STATUS "VTK found.")
+    #    INCLUDE(${VTK_USE_FILE})
+ENDIF()
 
 set(PROJECT_SOURCES
         main.cpp

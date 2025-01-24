@@ -67,7 +67,7 @@
 #include <pcl/registration/icp.h>
 #include <pcl/registration/registration.h>
 #include <pcl/search/flann_search.h>
-#include <pcl/surface/concave_hull.h>
+// #include <pcl/surface/concave_hull.h>
 #include <pcl/surface/gp3.h> //贪婪投影三角化算法类定义的头文件
 #include <pcl/surface/marching_cubes_hoppe.h> //移动立方体
 #include <pcl/surface/marching_cubes_rbf.h>
@@ -78,7 +78,6 @@
 #include <string>
 #include <vector>
 #include <vtkOutputWindow.h>
-
 #include <pcl/console/time.h>                   // TicToc
 #include <pcl/filters/approximate_voxel_grid.h> // 体素滤波
 #include <pcl/filters/voxel_grid.h>             // 体素滤波
@@ -129,6 +128,7 @@
 #include <boost/math/special_functions/round.hpp>
 
 // Visualization Toolkit (VTK)
+#include <QVTKOpenGLNativeWidget.h>
 #include <vtkRenderWindow.h>
 
 #include "inputdialog.h"
@@ -641,6 +641,7 @@ protected:
   QColor point_color;
   //创建一个共享的PCLVisualizer 对象用于显示
   pcl::visualization::PCLVisualizer::Ptr viewer_;
+    vtkSmartPointer<vtkGenericOpenGLRenderWindow> _renderWindow;
   //创建一个共享指针用于保存点云
   //原始点云
   PointCloudT::Ptr cloud_;
