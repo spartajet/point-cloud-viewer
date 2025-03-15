@@ -4,11 +4,18 @@ cmake_policy(SET CMP0144 NEW)
 
 project(PointCloudViewer VERSION 0.1 LANGUAGES CXX)
 
+if (CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
+    set(CMAKE_PREFIX_PATH "~/Qt/6.8.1/gcc_64")
+else (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
+    set(VTK_DIR "D:/cpp/libs/vtk/lib/cmake/vtk-9.4")
+    set(PCL_DIR "D:/cpp/libs/pcl/cmake")
+    set(FLANN_ROOT "D:/cpp/libs/pcl/3rdParty/FLANN")
+    set(PCL_ROOT "D:/cpp/libs/pcl")
+    include_directories("D:/cpp/libs/lz4/include")
+endif ()
+
 #set(CMAKE_PREFIX_PATH "C:/Qt/6.8.1/msvc2022_64")
-set(VTK_DIR "D:/cpp/libs/vtk/lib/cmake/vtk-9.4")
-set(PCL_DIR "D:/cpp/libs/pcl/cmake")
-set(FLANN_ROOT "D:/cpp/libs/pcl/3rdParty/FLANN")
-set(PCL_ROOT "D:/cpp/libs/pcl")
+
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -26,7 +33,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package (PCL REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
 message(STATUS "PCL_INCLUDE_DIRS: ${PCL_INCLUDE_DIRS}")
-include_directories("D:/cpp/libs/lz4/include")
+
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 

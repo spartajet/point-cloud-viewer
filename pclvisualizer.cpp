@@ -12,6 +12,7 @@
 #include <QTextList>
 #include <QTextStream>
 #include "vtkGenericOpenGLRenderWindow.h"
+#include <QThread>
 
 
 PCLVisualizer::PCLVisualizer(QWidget* parent)
@@ -1049,7 +1050,7 @@ PCLVisualizer::openProgressDlg(int num = 500)
     progressDialog->setRange(0, num); //设置进度对话框的步进范围
     for (int i = 1; i < num + 1; i++)
     {
-        Sleep(10);
+        QThread::sleep(10);
         progressDialog->setValue(i); //(i)
         if (progressDialog->wasCanceled()) //(j)
             return;
